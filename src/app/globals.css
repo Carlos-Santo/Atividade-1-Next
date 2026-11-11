@@ -1,0 +1,483 @@
+/* ---------- Cores e base ---------- */
+:root {
+  --fundo: #f6f7f9;
+  --superficie: #ffffff;
+  --texto: #1f2933;
+  --texto-suave: #5b6673;
+  --borda: #dde2e8;
+  --erro: #b42318;
+  --erro-fundo: #fef3f2;
+
+  /* Identidade de cada área */
+  --azul: #1d4ed8;
+  --azul-claro: #e8efff;
+  --verde: #15803d;
+  --verde-claro: #e7f6ec;
+  --laranja: #c2410c;
+  --laranja-claro: #fff1e6;
+
+  /* Cor da área atual (cada área redefine) */
+  --cor: #334155;
+  --cor-clara: #eef1f5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.conteudo-largo {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.principal {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* Áreas: cada uma define sua cor */
+.area-alunos,
+[data-area="alunos"] {
+  --cor: var(--azul);
+  --cor-clara: var(--azul-claro);
+}
+.area-disciplinas,
+[data-area="disciplinas"] {
+  --cor: var(--verde);
+  --cor-clara: var(--verde-claro);
+}
+.area-matriculas,
+[data-area="matriculas"] {
+  --cor: var(--laranja);
+  --cor-clara: var(--laranja-claro);
+}
+.area h1 {
+  color: var(--cor);
+}
+
+/* ---------- Cabeçalho, menu e rodapé ---------- */
+.cabecalho {
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+}
+.cabecalho-interno {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.marca {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.menu-principal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.menu-principal a {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  color: var(--texto-suave);
+  font-weight: 500;
+}
+.menu-principal a:hover {
+  background: var(--cor-clara);
+  color: var(--cor);
+}
+.menu-principal a.ativo {
+  background: var(--cor);
+  color: #fff;
+}
+
+.rodape {
+  border-top: 1px solid var(--borda);
+  background: var(--superficie);
+  color: var(--texto-suave);
+  font-size: 0.875rem;
+  padding: 1rem 0;
+}
+
+/* ---------- Componentes comuns ---------- */
+.cabecalho-area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.cabecalho-area h1 {
+  margin-bottom: 0.1rem;
+}
+.total {
+  color: var(--texto-suave);
+}
+
+.botao {
+  display: inline-block;
+  border: 1px solid var(--cor);
+  background: var(--cor);
+  color: #fff;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.botao:hover {
+  filter: brightness(1.1);
+}
+.botao-secundario {
+  background: transparent;
+  color: var(--cor);
+}
+.botao-secundario:hover {
+  background: var(--cor-clara);
+  filter: none;
+}
+.ficha + .botao,
+.lista + .botao {
+  margin-top: 1.5rem;
+}
+
+.mensagem {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0.75rem 0;
+}
+.mensagem-erro {
+  background: var(--erro-fundo);
+  color: var(--erro);
+  border: 1px solid #fecdca;
+}
+.mensagem-info {
+  background: var(--superficie);
+  border: 1px dashed var(--borda);
+  color: var(--texto-suave);
+}
+.mensagem + .botao {
+  margin-top: 0.5rem;
+}
+
+.carregando {
+  color: var(--texto-suave);
+}
+
+/* ---------- Página inicial ---------- */
+.apresentacao {
+  max-width: 680px;
+  margin-bottom: 2rem;
+}
+.apresentacao h1 {
+  font-size: 2rem;
+}
+.apresentacao p {
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+}
+.atalhos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.atalho {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-top: 5px solid var(--cor);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.atalho:hover {
+  background: var(--cor-clara);
+}
+.atalho h2 {
+  margin: 0;
+  color: var(--cor);
+}
+.atalho p {
+  color: var(--texto-suave);
+  flex: 1;
+}
+.atalho-seta {
+  font-weight: 600;
+  color: var(--cor);
+}
+
+/* ---------- Alunos: menu lateral + lista ---------- */
+.layout-alunos {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.layout-alunos aside {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-left: 5px solid var(--cor);
+  border-radius: 10px;
+  padding: 1rem;
+  position: sticky;
+  top: 1rem;
+}
+.area-titulo {
+  font-weight: 700;
+  color: var(--cor);
+  margin-bottom: 0.5rem;
+}
+.menu-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.menu-lateral a {
+  padding: 0.45rem 0.7rem;
+  border-radius: 6px;
+}
+.menu-lateral a:hover {
+  background: var(--cor-clara);
+}
+.menu-lateral a.ativo {
+  background: var(--cor-clara);
+  color: var(--cor);
+  font-weight: 600;
+}
+.layout-alunos-conteudo {
+  min-width: 0;
+}
+
+.lista {
+  list-style: none;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.lista li + li {
+  border-top: 1px solid var(--borda);
+}
+.lista a,
+.lista-simples li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+.lista a:hover {
+  background: var(--cor-clara);
+}
+.lista-nome {
+  font-weight: 500;
+}
+.lista-detalhe {
+  color: var(--texto-suave);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ficha {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1.5rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+}
+.ficha dt {
+  color: var(--texto-suave);
+}
+.ficha dd {
+  font-weight: 500;
+}
+
+/* ---------- Disciplinas: cartões ---------- */
+.cartoes {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.85rem;
+}
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-top: 4px solid var(--cor);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.cartao-id {
+  align-self: flex-start;
+  background: var(--cor-clara);
+  color: var(--cor);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+}
+.cartao-nome {
+  font-weight: 500;
+}
+
+/* ---------- Matrículas: tabela ---------- */
+.tabela-rolagem {
+  overflow-x: auto;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+}
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--borda);
+}
+.tabela th {
+  background: var(--cor);
+  color: #fff;
+  font-weight: 600;
+}
+.tabela tbody tr:nth-child(even) {
+  background: var(--cor-clara);
+}
+.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+.tabela td:first-child {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Formulários ---------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 520px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+.formulario input,
+.formulario select {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--texto);
+  width: 100%;
+}
+.formulario input:focus,
+.formulario select:focus {
+  outline: 2px solid var(--cor);
+  outline-offset: 1px;
+}
+.formulario .mensagem {
+  margin: 0;
+}
+.formulario-acoes {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ---------- 404 ---------- */
+.nao-encontrado {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.nao-encontrado .codigo {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--borda);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.nao-encontrado p {
+  color: var(--texto-suave);
+  margin-bottom: 1.25rem;
+}
+
+/* ---------- Telas pequenas ---------- */
+@media (max-width: 720px) {
+  .layout-alunos {
+    grid-template-columns: 1fr;
+  }
+  .layout-alunos aside {
+    position: static;
+  }
+  .menu-lateral {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- Textos longos ---------- */
+/* Nomes muito longos quebram a linha em vez de estourar a largura da página. */
+h1,
+.lista-nome,
+.ficha dd,
+.cartao-nome,
+.tabela td,
+.mensagem {
+  overflow-wrap: anywhere;
+}
+.botao:disabled {
+  opacity: 0.6;
+  cursor: default;
+  filter: none;
+}
